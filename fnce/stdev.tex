@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{blindtext}
+\usepackage{ragged2e}
+\usepackage{fancyhdr}
+\setlength{\headheight}{16pt}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{tabularray}
+\usepackage{lastpage}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+\begin{document}
+\newcommand{\plusbinomial}[3][2]{(#2 + #3)^#1}
+\newcommand{\stddev}[2]{
+	U_{A,#1} = \sqrt{\frac{1}{N \cdot (N-1)} \cdot \sum_{n=1}^{N} \left( R_N - \overline{#2}_{#1} \right)^2}
+}
+
+\stddev{\Omega}{R}\\
+
+\end{document}

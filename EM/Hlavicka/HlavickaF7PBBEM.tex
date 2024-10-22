@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{blindtext}
+\usepackage{ragged2e}
+\usepackage{fancyhdr}
+\setlength{\headheight}{16pt}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{tabularray}
+\usepackage{lastpage}
+\usepackage{circuitikz}
+\usepackage{amssymb}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+\begin{document}
+	\newcommand{\SC}{Protokol-17PBBEM-2425-UČ1-MatousSizling-24-16-11} %staci psat seriove cislo sem <3
+	\newcommand{\uloha}{Měření odporu a výkonu} %sem Ulohu
+	\newcommand{\autor}{Matouš Šizling}
+	\newcommand{\prilohy}{
+		\newpage
+		\renewcommand\thesection{\Alph{section}}
+		\setcounter{section}{0}
+		\section*{Přílohy:}
+	} %asi nema vyhody davat to do jednoho commandu ale...
+\newcommand{\stddev}[2]{
+	U_{A,#1} = \sqrt{\frac{1}{N \cdot (N-1)} \cdot \sum_{n=1}^{N} \left( R_N - \overline{#2}_{#1} \right)^2}
+}
+
+	\begin{titlepage}
+	\begin{figure}[t]
+		\begin{center}
+			\includegraphics[width=200pt]{screenshot001}
+		\end{center}
+	\end{figure}
+	\begin{figure}
+		\LARGE
+		\centering
+		\textbf{
+			Elektrická měření 17PBBEM \\
+			PROTOKOL O MĚŘENÍ \\
+			k úloze číslo 1:\\
+			\uloha}
+	\end{figure}
+	\end{titlepage}
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{p{6cm} p{4cm}}
+			\hline
+			\multicolumn{2}{|l|}{Protokol vypracoval}                                                                                                   \\ \hline
+			\multicolumn{1}{|l|}{Jméno a příjmení:}               & \multicolumn{1}{l|}{\autor}                                    \\ \hline
+			\multicolumn{1}{|l|}{Studijní obor/studijní skupina}        & \multicolumn{1}{l|}{Biomedicínská technika / 2}                        \\ \hline
+			\multicolumn{1}{|l}{Měření bylo provedeno ve spolupráci s}     & \multicolumn{1}{l|}{}                                                  \\ \hline
+			\multicolumn{1}{|l|}{Jméno a příjmení:}               & \multicolumn{1}{l|}{Spolu Pracovnik}                        \\ \hline
+			\multicolumn{1}{|l}{Sériové číslo a celkový počet stran protokolu} & \multicolumn{1}{l|}{}                                                  \\ \hline
+			\multicolumn{1}{|l|}{Sériové číslo:}                & \multicolumn{1}{l|}{\SC}  \\ \hline
+			\multicolumn{1}{|l|}{Celkový počet stran}              & \multicolumn{1}{l|}{\pageref{LastPage}}                                                  \\ \hline
+			\multicolumn{2}{|l|}{Místo a datum provedení měření}                                                                                        \\ \hline
+			\multicolumn{1}{|l|}{Datum}                     & \multicolumn{1}{l|}{16.11.2024}                                          \\ \hline
+			\multicolumn{1}{|l|}{Místo měření}                 & \multicolumn{1}{l|}{Laboratoř senzorů a měření (KL:A-011), FBMI, ČVUT v Praze} \\ \hline
+			\multicolumn{1}{|l|}{Podpis studenta,}               & \multicolumn{1}{l|}{}                                                  \\
+			\multicolumn{1}{|l|}{který měření}                 & \multicolumn{1}{l|}{}                                                  \\
+			\multicolumn{1}{|l|}{provedl a}                   & \multicolumn{1}{l|}{}                                                  \\
+			\multicolumn{1}{|l|}{vypracoval protokol:}             & \multicolumn{1}{l|}{}                                                  \\ \hline
+		\end{tabular}
+	\end{table}
+	\newpage
+	\pagestyle{fancy}
+	\lhead{\includegraphics[width=100pt]{screenshot001}}
+	\rhead{\autor \\ \uloha}
+	\lfoot{Sériové číslo protokolu: \SC} %to co se objevi v levem zapati
+	\rfoot{\thepage\ / \pageref{LastPage}} % do praveho zapati vklada cislo  stranky / pocet stranek
+	\justifying %zarovnani do bloku
+	\tableofcontents %automaticky obsah
+	\newpage
+	\section{\LARGE Úvod:}
+	Tato úloha je …
+	\subsection{\large Cíl úlohy:}
+	Cílem této úlohy je …
+	Poznámka: celé zadání je k dispozici na stránkách předmětu http://www.fbmi.cvut.
+	cz/studenti/predmety/17pbbem.
+	\section{\LARGE Materiály a metody:}
+	Tato kapitola uvádí seznam použitých přístrojů, součástek (kapitola 2.1) a metod měření (kapitoly 2.2 a 2.3) včetně způsobu určení rozšířených nejistot měření.
+	\subsection{\large Použité přístroje a součástky:}
+	Použité přístroje a součástky jsou uvedeny v tabulce 1.
+	
+	\begin{table}[h]
+		\begin{center}
+			\caption{Použité přístroje, pomůcky a součástky}
+			\begin{tblr}{
+					colspec={Q[4cm] Q[1cm] Q[2.3cm] Q[2cm] Q[2cm] Q[1cm] },
+					columns={halign=c},
+					columns={valign=m},
+					vlines,
+					hlines
+				}
+				Přístroj / pomůcka / součástka & model & výrobce & Země původu & Sériové číslo (SČ) / inventární číslo (IČ) & symbol \\
+				Stolní číslicový multimetr - měření odporu & 34410A & Agilent & USA & SČ: MY45010572 & \tikz \draw (0,0) to[rmeter, t=$\Omega$] (0,2); \\
+				Přenosný číslicový multimetr - měření stejnosměrného napětí & UT70A & UniTrend
+				Group
+				Limited & PRC & SČ: 3060193342 & \tikz \draw (0,0) to[rmeter, t=V] (0,2);\\
+				4 rezistory o různých jmenovitých hodnotách odporu
+				R1 = 82 $\Omega$, R2 = 820 $\Omega$, R3 = 82 $k\Omega$, R4 = 820 $k\Omega$. &&&&& \tikz \draw (0,0) to[generic=$R_x$] (0,2);\\
+				Číslicový teploměr a vlhkoměr & MS-10 & VOLTCRAFT & SRN & SČ: 123456 & - 
+			\end{tblr}
+		\end{center}
+	\end{table}
+	
+	\subsection{Měření číslicovím ohmmetrem:}
+	Pro měření odporu $Rx$ číslicovým ohmmetrem $\Omega 1$ bylo použito čtyřsvorkovém zapojení stolního číslicového multimetru Agilent 34410A [1].
+	\subsubsection{Nejistota měření odporu číslicovým ohmmetrem:}
+	Standardní nejistota měření typu A je rovna\\
+	$U_{A,\Omega} = \sqrt[]{\frac{1}{N \cdot (N-1)} \cdot \sum_{n=1}^{N}(R_{N}-\overline{R_{\Omega 1}})^2}$, \hfill (1)\\
+	kde N je počet měření, …
+	\section{Výsledky měření:}
+	\subsection{Parametry prostředí:}
+	V laboratoři byla na začátku měření změřena teplota (22,3 ± 0,6) °C a vlhkost vzduchu (51,2 ± 0,9) \% pomocí digitálního teploměru a vlhkoměru [4].
+	\subsection{Elektrické odpory:}
+	Odečtené hodnoty odporů, rozsahy měření a výsledky měření odporů pomocí číslicového ohmmetru jsou uvedeny v tabulce 2. Naměřené hodnoty odporů byly doplněné o rozšířenou nejistotu měření s koeficientem rozšíření\\ $k_r$ = 2.
+	
+	\begin{table}[h]
+		\begin{center}
+			\caption{Hodnoty odporu naměřené číslicovým ohmmetrem.}
+			\begin{tblr}{
+					colspec={Q[1.5cm] Q[5cm] Q[5cm] Q[3cm]},
+					columns={halign=c},
+					columns={valign=m},
+					vlines,
+					hlines
+				}
+				$R_n$&Hodnoty odporů odečtených na číslicovém ohmmetru $\Omega 1$ & Průměrné hodnoty odporů $R_n,\Omega 1$ naměřených 
+				ohmmetrem $\Omega 1$ ($K_r$ = 2) & Rozsah měření \\
+				$R_1$ & \newline82,596 $\Omega$\newline
+				82,595 $\Omega$\newline
+				82,595 $\Omega$\newline
+				82,596 $\Omega$\newline
+				82,594 $\Omega$\newline
+				&	82,5952 $\Omega$ ±0,0064 $\Omega$ & 100 $\Omega$ \\
+				$R_2$ & \newline818,22 $\Omega$\newline
+				818,22 $\Omega$\newline
+				818,22 $\Omega$\newline
+				818,22 $\Omega$\newline
+				818,22 $\Omega$\newline
+				&
+				818,220 $\Omega$ ±0,025 $\Omega$
+				&
+				1 $k\Omega$
+			\end{tblr}
+		\end{center}
+	\end{table}
+	\section{Diskuze:}
+	Vzhledem k vhodnosti použité varianty Ohmovy metody …
+	\section{Závěr:}
+	Odpory rezistorů byly změřeny …
+	\prilohy
+	\section{Ukázkové výpočty nejistot měření:}
+	\subsection{Ukázkové výpočty nejistot měření:}
+	Ukázkový výpočet je proveden pro …
+	\section*{Reference:}
+	
+\end{document}
